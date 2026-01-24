@@ -1,0 +1,12 @@
+image: ubuntu_2004:latest
+stack: java:11
+branches:
+  only:
+    - main
+build: off
+install:
+  - test -f app-mbank.jar && java -jar app-mbank.jar & || exit 1
+  - chmod +x gradlew
+build_script:
+  - set -euxo pipefail
+  - ./gradlew test --info -Dselenide.headless=true
